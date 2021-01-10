@@ -1,39 +1,43 @@
-#-----------------BUILDER-----------------
-#-----------------------------------------
-FROM node:14-alpine3.11 AS builder
-RUN apk add --update-cache --repository https://alpine.global.ssl.fastly.net/alpine/v3.11/community/ \
-  python build-base sqlite-dev sqlite-libs vips-dev fftw-dev gcc g++ make libc6-compat
-COPY . /app
+FROM alpine AS qemu-builder
+RUN apk add --no-cache wget && \
+    wget https://github.com/multiarch/qemu-user-static/releases/download/v4.1.1-1/x86_64_qemu-arm-static.tar.gz && \
+    tar -xvf x86_64_qemu-arm-static.tar.gz
+
+# separate release builder for faster build on docker hub
+FROM node:12-stretch AS node-builder
+# copying only package{-lock}.json to make node_modules cachable
+COPY package*.json /build/
+WORKDIR /build
+RUN set -x && npm install --unsafe-perm
+# build app
+COPY . /build
+RUN npm run create-release
+
+FROM arm32v7/node:12-stretch AS builder
+COPY --from=qemu-builder /qemu-arm-static /usr/bin
+COPY --from=node-builder /build/release /build/release
+RUN mkdir -p /build/release/data/config && \
+    mkdir -p /build/release/data/db && \
+    mkdir -p /build/release/data/images && \
+    mkdir -p /build/release/data/tmp && \
+    cd /build/release && npm install --unsafe-perm && \
+    npm start -- --config-only --force-rewrite-config \
+    --config-path=data/config/config.json \
+    --Server-Database-sqlite-storage='data/db/sqlite.db' \
+    --Server-Database-memory-usersFile='data/db/users.db' \
+    --Server-Media-folder='data/images' \
+    --Server-Media-tempFolder='data/tmp'  || true
+
+
+FROM arm32v7/node:12-stretch-slim
+COPY --from=qemu-builder /qemu-arm-static /usr/bin
 WORKDIR /app
-RUN npm install --unsafe-perm
-RUN mkdir -p /app/data/config && \
-    mkdir -p /app/data/db && \
-    mkdir -p /app/data/images && \
-    mkdir -p /app/data/tmp
-
-
-#-----------------MAIN--------------------
-#-----------------------------------------
-FROM node:14-alpine3.11 AS main
-WORKDIR /app
-ENV NODE_ENV=production \
-    # overrides only the default value of the settings (the actualy value can be overwritten through config.json)
-    default-Server-Database-dbFolder=/app/data/db \
-    default-Server-Media-folder=/app/data/images \
-    default-Server-Media-tempFolder=/app/data/tmp \
-    # flagging dockerized environemnt
-    PI_DOCKER=true
-
+ENTRYPOINT ["npm", "start"]
 EXPOSE 80
-RUN apk add --update-cache --repository https://alpine.global.ssl.fastly.net/alpine/v3.11/community/ \
-    vips ffmpeg
-COPY --from=builder /app /app
+ENV NODE_ENV=production
+COPY --from=builder /build/release /app
+RUN ln -s /app/data/config/config.json config.json
 VOLUME ["/app/data/config", "/app/data/db", "/app/data/images", "/app/data/tmp"]
-HEALTHCHECK --interval=40s --timeout=30s --retries=3 --start-period=60s \
+HEALTHCHECK --interval=30s --timeout=10s --retries=4 --start-period=60s \
   CMD wget --quiet --tries=1 --no-check-certificate --spider \
-  http://localhost:80/heartbeat || exit 1
-
-# after a extensive job (like video converting), pigallery calls gc, to clean up everthing as fast as possible
-# Exec form entrypoint is need otherwise (using shell form) ENV variables are not properly passed down to the app
-ENTRYPOINT ["node", "./src/backend/index", "--expose-gc",  "--config-path=/app/data/config/config.json"]
-
+  http://localhost:80 || exit 1
