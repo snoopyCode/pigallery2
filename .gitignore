@@ -21,7 +21,6 @@ config.json
 users.db
 sqlite.db
 dist/
-release/
 out-tsc/
 ffmpeg/
 locale.source.xlf
