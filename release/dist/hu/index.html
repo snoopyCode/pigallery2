@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="<%= Config.Client.urlBase %>/"/>
+  <meta charset="UTF-8">
+  <title>Loading..</title>
+  <link rel="shortcut icon" href="assets/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="manifest" crossorigin="use-credentials" href="manifest.json">
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin=""/>
+
+  <script>
+    var ServerInject = {user:  <%- JSON.stringify(user); %>, ConfigInject: <%- JSON.stringify(Config); %>}
+  </script>
+
+<link rel="stylesheet" href="styles.1c995213107c2ec08ac5.css" crossorigin="anonymous"></head>
+
+<body style="overflow-y: scroll; padding-right: 0 !important;">
+<app-pi-gallery2>
+  <div style="position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    left: 50%;
+    text-align: center">
+    <img src="assets/icon.png" style="max-width: 256px"/>
+    <h2>Loading...</h2>
+  </div>
+</app-pi-gallery2>
+<script src="runtime-es2015.4e02993a83cfe24c6926.js" crossorigin="anonymous" type="module"></script><script src="runtime-es5.4e02993a83cfe24c6926.js" crossorigin="anonymous" nomodule defer></script><script src="polyfills-es5.1e9001f32bc2148aab39.js" crossorigin="anonymous" nomodule defer></script><script src="polyfills-es2015.c5a8f019fc426e2772a2.js" crossorigin="anonymous" type="module"></script><script src="main-es2015.c75fef82e131409c84f4.js" crossorigin="anonymous" type="module"></script><script src="main-es5.c75fef82e131409c84f4.js" crossorigin="anonymous" nomodule defer></script></body>
+</html>

@@ -20,7 +20,6 @@ demo/tmp/
 config.json
 users.db
 sqlite.db
-dist/
 out-tsc/
 ffmpeg/
 locale.source.xlf
