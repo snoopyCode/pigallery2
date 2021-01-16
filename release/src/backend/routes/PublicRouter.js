@@ -74,7 +74,7 @@ class PublicRouter {
                 ],
                 display: 'standalone',
                 orientation: 'any',
-                start_url: Config_1.Config.Client.publicUrl,
+                start_url: Config_1.Config.Client.publicUrl ? "." : Config_1.Config.Client.publicUrl,
                 background_color: '#000000',
                 theme_color: '#000000'
             });
