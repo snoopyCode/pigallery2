@@ -1,0 +1,234 @@
+{
+    "Server": {
+        "sessionSecret": [
+            "26fcbca3a05586cfb17818354b617f98e45f31086d32097fa6037f274cb1fa29ac915db1738be536f5a6a1d0283d008f7231efc5642f0ddc6957125817e0b9b509e07f041a1e1489346bd99220a19f6a24664ff4b1018b7e452d4e589a183c6eefa0e1d9eb5f03213a7d9d7bc3e3f6b6775dfb8c26698ed13a1ad4ef72e2002d95f4ddf53c53f38d3624381d726472f94a296a4803625caab057e98f0f0c83917d07620ad771a11b38ab10bfa15b5f97188c4925e2bd3f06adbefb5536ad6abfb8ff1ec1bff33903941206db5895ff141d14f36e2e241fd966289e5a82b850c41e81b936fa34021243702eb4877f6bac1c78a0bee12d7f35d9b7961b79674e5b",
+            "7410f076c4694bb8e434631c5487699e736ca9911386a5d3337954eb9e12901549174dca45915a49f8868767981ef31caa3bdccea69d14146ec2cb77e6a651268983b7b8765ae1d578bced3da6621b957ac095b33bd05af69b93b9fe1fb0697326e561b4e16cc9e4f3de2fb9bc46f4d367a5893af938ab45bec2536715b8e11d81160fbc99307628f097610f4fc03f9cc3145f170c5ee8461d2f83f6725dfd2ee6196264033ee7eefc0f8718d89cbc22d87fa942158e40bd65773ce062048abd02060fa7f1742f35f7de773359e54b0c15dd5292f5f7321f06aa885be9c5a7e360de7eb031f401f7326f129c924733b655e83998dc2ae0c21516d7169010818a",
+            "7351f6879d9050a961455c62a29d7010ff112c5a0f644f8980158803743b7d21b886e1307141df18793da2ba41bb7c819e09b9132bb84d19e3aa1c6b57d58c583a35abbbd8ebc0e3d868e497f694817cddad3b90f12358ac6ba1f373e143a479bc18c8f00ddf99179f0a0345bed17c9b873fd9980fc56031ff1e3a5c82954d99fb28488a5fb9b60bb21f65da9063eeef4264f478a32bb840a57981f05320cb003228c0ca32b11bf7b9d580bd9b30bdcb94ccab6960ac512fa27ddae5b90e0d5904518879e3b4ed883484f2a6cba9ff184c9f877f93fd9b728291e28b1ffd31019c5031be6b8a56cb3fe3bb3fd3159dec5fdb3a962d539e9e67278ce35f03d929"
+        ],
+        "port": 80,
+        "host": "0.0.0.0",
+        "Media": {
+            "//[folder]": "Images are loaded from this folder (read permission required)",
+            "folder": "demo/images",
+            "//[tempFolder]": "Thumbnails, coverted photos, videos will be stored here (write permission required)",
+            "tempFolder": "demo/tmp",
+            "Video": {
+                "transcoding": {
+                    "bitRate": 5242880,
+                    "resolution": 720,
+                    "fps": 25,
+                    "codec": "libx264",
+                    "format": "mp4",
+                    "//[crf]": "Constant Rate Factor. The range of the CRF scale is 0–51, where 0 is lossless, 23 is the default, and 51 is worst quality possible.",
+                    "crf": 23,
+                    "//[preset]": "A preset is a collection of options that will provide a certain encoding speed to compression ratio",
+                    "preset": "medium",
+                    "//[customOptions]": "It will be sent to ffmpeg as it is, as custom options.",
+                    "customOptions": []
+                }
+            },
+            "Photo": {
+                "Converting": {
+                    "//[onTheFly]": "Converts photos on the fly, when they are requested.",
+                    "onTheFly": true,
+                    "resolution": 1080
+                }
+            },
+            "Thumbnail": {
+                "//[qualityPriority]": "if true, photos will have better quality.",
+                "qualityPriority": true,
+                "personFaceMargin": 0.6
+            }
+        },
+        "Threading": {
+            "//[enabled]": "App can run on multiple thread",
+            "enabled": true,
+            "//[thumbnailThreads]": "Number of threads that are used to generate thumbnails. If 0, number of 'CPU cores -1' threads will be used.",
+            "thumbnailThreads": 0
+        },
+        "Database": {
+            "type": "sqlite",
+            "dbFolder": "db",
+            "sqlite": {
+                "DBFileName": "sqlite.db"
+            },
+            "mysql": {
+                "host": "localhost",
+                "port": 3306,
+                "database": "pigallery2",
+                "username": "",
+                "password": ""
+            }
+        },
+        "Sharing": {
+            "updateTimeout": 300000
+        },
+        "//[sessionTimeout]": "unit: ms",
+        "sessionTimeout": 604800000,
+        "Indexing": {
+            "folderPreviewSize": 2,
+            "cachedFolderTimeout": 3600000,
+            "reIndexingSensitivity": "low",
+            "//[excludeFolderList]": "If an entry starts with '/' it is treated as an absolute path. If it doesn't start with '/' but contains a '/', the path is relative to the image directory. If it doesn't contain a '/', any folder with this name will be excluded.",
+            "excludeFolderList": [
+                ".Trash-1000",
+                ".dtrash",
+                "$RECYCLE.BIN"
+            ],
+            "//[excludeFileList]": "Any folder that contains a file with this name will be excluded from indexing.",
+            "excludeFileList": []
+        },
+        "//[photoMetadataSize]": "only this many bites will be loaded when scanning photo for metadata",
+        "photoMetadataSize": 524288,
+        "Duplicates": {
+            "listingLimit": 1000
+        },
+        "Log": {
+            "level": "info",
+            "sqlLevel": "error"
+        },
+        "Jobs": {
+            "//[maxSavedProgress]": "Job history size",
+            "maxSavedProgress": 10,
+            "scheduled": [
+                {
+                    "name": "Indexing",
+                    "jobName": "Indexing",
+                    "config": {},
+                    "allowParallelRun": false,
+                    "trigger": {
+                        "type": "never"
+                    }
+                },
+                {
+                    "name": "Thumbnail Generation",
+                    "jobName": "Thumbnail Generation",
+                    "config": {
+                        "sizes": [
+                            240
+                        ],
+                        "indexedOnly": true
+                    },
+                    "allowParallelRun": false,
+                    "trigger": {
+                        "type": "after",
+                        "afterScheduleName": "Indexing"
+                    }
+                },
+                {
+                    "name": "Photo Converting",
+                    "jobName": "Photo Converting",
+                    "config": {
+                        "indexedOnly": true
+                    },
+                    "allowParallelRun": false,
+                    "trigger": {
+                        "type": "after",
+                        "afterScheduleName": "Thumbnail Generation"
+                    }
+                },
+                {
+                    "name": "Video Converting",
+                    "jobName": "Video Converting",
+                    "config": {
+                        "indexedOnly": true
+                    },
+                    "allowParallelRun": false,
+                    "trigger": {
+                        "type": "after",
+                        "afterScheduleName": "Photo Converting"
+                    }
+                },
+                {
+                    "name": "Temp Folder Cleaning",
+                    "jobName": "Temp Folder Cleaning",
+                    "config": {
+                        "indexedOnly": true
+                    },
+                    "allowParallelRun": false,
+                    "trigger": {
+                        "type": "after",
+                        "afterScheduleName": "Video Converting"
+                    }
+                }
+            ]
+        }
+    },
+    "Client": {
+        "applicationTitle": "PiGallery 2",
+        "publicUrl": "",
+        "urlBase": "",
+        "Search": {
+            "enabled": true,
+            "instantSearchEnabled": true,
+            "InstantSearchTimeout": 3000,
+            "instantSearchCacheTimeout": 3600000,
+            "searchCacheTimeout": 3600000,
+            "AutoComplete": {
+                "enabled": true,
+                "maxItemsPerCategory": 5,
+                "cacheTimeout": 3600000
+            },
+            "maxMediaResult": 2000,
+            "maxDirectoryResult": 200
+        },
+        "Sharing": {
+            "enabled": true,
+            "passwordProtected": true
+        },
+        "Map": {
+            "enabled": true,
+            "useImageMarkers": true,
+            "mapProvider": "OpenStreetMap",
+            "mapboxAccessToken": "",
+            "customLayers": [
+                {
+                    "name": "street",
+                    "url": ""
+                }
+            ]
+        },
+        "RandomPhoto": {
+            "enabled": true
+        },
+        "Other": {
+            "enableCache": true,
+            "enableOnScrollRendering": true,
+            "defaultPhotoSortingMethod": "ascDate",
+            "enableOnScrollThumbnailPrioritising": true,
+            "NavBar": {
+                "showItemCount": true
+            },
+            "captionFirstNaming": false
+        },
+        "authenticationRequired": true,
+        "unAuthenticatedUserRole": "Admin",
+        "Media": {
+            "Thumbnail": {
+                "iconSize": 45,
+                "personThumbnailSize": 200,
+                "thumbnailSizes": [
+                    240,
+                    480
+                ]
+            },
+            "Video": {
+                "enabled": true
+            },
+            "Photo": {
+                "Converting": {
+                    "enabled": true
+                }
+            }
+        },
+        "MetaFile": {
+            "enabled": true
+        },
+        "Faces": {
+            "enabled": true,
+            "keywordsToPersons": true,
+            "writeAccessMinRole": "Admin",
+            "readAccessMinRole": "User"
+        }
+    }
+}

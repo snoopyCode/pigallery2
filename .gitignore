@@ -17,7 +17,6 @@ benchmark/**/*.js.map
 gulpfile.js
 gulpfile.js.map
 demo/tmp/
-config.json
 users.db
 sqlite.db
 out-tsc/
