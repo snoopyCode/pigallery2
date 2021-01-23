@@ -2,9 +2,7 @@
 .idea/
 .git/
 node_modules/
-release/
 demo/
-dist/
 PiGallery2.iml
 docs/
 out-tsc/
