@@ -7,7 +7,7 @@ ADD release/package-lock.json /build/release/
 RUN cd /build/release && npm install --unsafe-perm 
 
 ADD release/ /build/release/
-RUN cd /build/release 
+RUN cd /build/release && mkdir -p data/tmp && mkdir -p data/db && mkdir -p data/images 
 CMD ["npm","start","--","--config-only","--force-rewrite-config", \
     "--config-path=data/config/config.json", \
     "--Server-Database-sqlite-storage='data/db/sqlite.db'", \
