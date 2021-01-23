@@ -10,7 +10,7 @@ services:
 #    network_mode: "host"
     environment:
       - NODE_ENV=production
-#    volumes:
-#      - ./dist:/usr/share/nginx/html
-#      - ./etc:/appdir/etc
+    volumes:
+      - ./images:/build/release/data/images
+      - ./tmp:/build/release/data/tmp
     restart: always
