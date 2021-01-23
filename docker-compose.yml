@@ -13,4 +13,5 @@ services:
     volumes:
       - ./images:/build/release/data/images
       - ./tmp:/build/release/data/tmp
+      - ./db:/build/release/data/db
     restart: always
