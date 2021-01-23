@@ -1,6 +1,6 @@
 version: '3'
 services:
-  controllerui:
+  pigallery:
     build:
       context: .
       dockerfile: Dockerfile
