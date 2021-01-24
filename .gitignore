@@ -24,3 +24,4 @@ ffmpeg/
 locale.source.xlf
 test.*
 /db/
+/dist
